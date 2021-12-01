@@ -1,28 +1,28 @@
-import { useLoaderData, Link } from "remix";
-import { getPosts } from "./post.server";
+import { useLoaderData, Link } from 'remix'
+import { getPosts } from '../../post.server'
 
 export type Post = {
-  slug: string;
-  title: string;
-};
+  slug: string
+  title: string
+}
 
 export let loader = () => {
-  return getPosts();
-};
+  return getPosts()
+}
 
 export default function Posts() {
-  let posts = useLoaderData<Post[]>();
-  console.log(posts);
+  let posts = useLoaderData<Post[]>()
+  console.log(posts)
   return (
     <div>
       <h1>Posts</h1>
       <ul>
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.slug}>
             <Link to={post.slug}>{post.title}</Link>
           </li>
         ))}
       </ul>
     </div>
-  );
+  )
 }

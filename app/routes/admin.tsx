@@ -1,31 +1,33 @@
-import { Link, useLoaderData, Outlet } from "remix";
-import { getPosts } from "./posts/post";
-import type { Post } from "./posts";
-import adminStyles from "~/styles/admin.css"
+import { Link, useLoaderData, Outlet } from 'remix'
+import { getPosts } from '../post.server'
+import type { Post } from './posts'
+import adminStyles from '~/styles/admin.css'
 
 export let links = () => {
-	return [{ rel: "stylesheet", href: adminStyles }];
-  };
+  return [{ rel: 'stylesheet', href: adminStyles }]
+}
 
 export let loader = () => {
-  return getPosts();
-};
+  return getPosts()
+}
 
 export default function Admin() {
-  let posts = useLoaderData<Post[]>();
+  let posts = useLoaderData<Post[]>()
   return (
-    <div className="admin">
+    <div className='admin'>
       <nav>
         <h1>Admin</h1>
         <ul>
-          {posts.map(post => (
+          {posts.map((post) => (
             <li key={post.slug}>
               <Link to={post.slug}>{post.title}</Link>
             </li>
           ))}
         </ul>
       </nav>
-      <main><Outlet /></main>
+      <main>
+        <Outlet />
+      </main>
     </div>
-  );
+  )
 }
